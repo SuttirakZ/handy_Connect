@@ -47,28 +47,19 @@ class _LoginWidgetState extends State<LoginWidget> {
           decoration: BoxDecoration(
             color: Color(0x19444D59),
             image: DecorationImage(
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/launchScreen@3x.png',
+                'assets/images/albfo_3.png',
               ).image,
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 90),
+            padding: EdgeInsetsDirectional.fromSTEB(0, 300, 0, 90),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
-                    child: Image.asset(
-                      'assets/images/logoGeekMessaging.png',
-                      width: 160,
-                      height: 140,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
                     child: Container(
@@ -298,12 +289,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                             width: 150,
                             height: 40,
                             color: Color(0x004B39EF),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .subtitle1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).black600,
+                                  fontSize: 16,
+                                ),
                             elevation: 0,
                             borderSide: BorderSide(
                               color: Colors.transparent,

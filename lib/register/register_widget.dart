@@ -55,7 +55,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/launchScreen@3x.png',
+                'assets/images/24.png',
               ).image,
             ),
           ),
@@ -68,11 +68,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
-                    child: Image.asset(
-                      'assets/images/logoGeekMessaging.png',
-                      width: 160,
-                      height: 140,
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 160,
+                        height: 140,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Padding(

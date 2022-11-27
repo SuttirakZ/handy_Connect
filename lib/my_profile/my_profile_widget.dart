@@ -107,7 +107,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Image.asset(
-                                      'assets/images/hero@2x.png',
+                                      'assets/images/pic_splash.png',
                                       width: MediaQuery.of(context).size.width,
                                       height: 200,
                                       fit: BoxFit.cover,
