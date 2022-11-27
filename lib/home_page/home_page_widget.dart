@@ -29,11 +29,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
-        backgroundColor: Color(0xFFCDCDCD),
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         title: Text(
           'Homepage',
-          style: FlutterFlowTheme.of(context).title2,
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
         ),
         actions: [],
         centerTitle: false,

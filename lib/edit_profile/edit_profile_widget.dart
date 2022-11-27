@@ -73,9 +73,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
             title: Text(
               'Edit Profile',
-              style: FlutterFlowTheme.of(context).title2.override(
+              style: FlutterFlowTheme.of(context).title1.override(
                     fontFamily: 'Lexend Deca',
-                    color: FlutterFlowTheme.of(context).tertiaryColor,
+                    color: FlutterFlowTheme.of(context).dark900,
                   ),
             ),
             actions: [],

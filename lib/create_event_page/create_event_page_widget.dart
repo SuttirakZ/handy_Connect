@@ -56,11 +56,14 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
-        backgroundColor: Color(0xFFCDCDCD),
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         title: Text(
           'Create Event',
-          style: FlutterFlowTheme.of(context).title1,
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
         ),
         actions: [
           Padding(
