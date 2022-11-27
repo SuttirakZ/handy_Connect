@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +75,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                 size: 30,
               ),
               onPressed: () async {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
           ),
@@ -436,6 +435,37 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 16),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              var _shouldSetState = false;
+                              var confirmDialogResponse =
+                                  await showDialog<bool>(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text(
+                                                'Are you sure to create this event?'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, false),
+                                                child: Text('No'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, true),
+                                                child: Text('Yes'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ) ??
+                                      false;
+                              if (confirmDialogResponse) {
+                                Navigator.pop(context);
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
                               if (formKey.currentState == null ||
                                   !formKey.currentState!.validate()) {
                                 return;
@@ -465,6 +495,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                               await postsRecordReference.set(postsCreateData);
                               postID = PostsRecord.getDocumentFromData(
                                   postsCreateData, postsRecordReference);
+                              _shouldSetState = true;
 
                               final usersUpdateData = {
                                 'post_id':
@@ -484,32 +515,10 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                   backgroundColor: Color(0xFFFFC03D),
                                 ),
                               );
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Complete'),
-                                    content:
-                                        Text('Please wait for the Volunteer !'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavBarPage(initialPage: 'homePage'),
-                                ),
-                              );
 
-                              setState(() {});
+                              context.pushNamed('homePage');
+
+                              if (_shouldSetState) setState(() {});
                             },
                             text: 'Create Event',
                             icon: Icon(

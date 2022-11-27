@@ -1,9 +1,7 @@
 import '../auth/auth_util.dart';
-import '../complete_profile/complete_profile_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -329,6 +327,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      GoRouter.of(context).prepareAuthEvent();
                       if (passwordController?.text !=
                           confirmPasswordController?.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -350,13 +349,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         return;
                       }
 
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CompleteProfileWidget(),
-                        ),
-                        (r) => false,
-                      );
+                      context.goNamedAuth('completeProfile', mounted);
                     },
                     text: 'Create Account',
                     options: FFButtonOptions(
@@ -390,15 +383,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         ),
                         FFButtonWidget(
                           onPressed: () async {
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 150),
-                                reverseDuration: Duration(milliseconds: 150),
-                                child: LoginWidget(),
-                              ),
-                              (r) => false,
+                            context.goNamed(
+                              'Login',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 150),
+                                ),
+                              },
                             );
                           },
                           text: 'Login',

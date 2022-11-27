@@ -2,8 +2,6 @@ import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
-import '../register/register_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -235,6 +233,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      GoRouter.of(context).prepareAuthEvent();
+
                       final user = await signInWithEmail(
                         context,
                         emailTextController!.text,
@@ -244,13 +244,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         return;
                       }
 
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NavBarPage(initialPage: 'homePage'),
-                        ),
-                      );
+                      context.pushNamedAuth('homePage', mounted);
                     },
                     text: 'Login',
                     options: FFButtonOptions(
@@ -288,14 +282,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         FFButtonWidget(
                           onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 150),
-                                reverseDuration: Duration(milliseconds: 150),
-                                child: RegisterWidget(),
-                              ),
+                            context.pushNamed(
+                              'Register',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 150),
+                                ),
+                              },
                             );
                           },
                           text: 'Create Account',

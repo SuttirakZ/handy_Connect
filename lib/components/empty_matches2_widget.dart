@@ -1,4 +1,3 @@
-import '../create_event_page/create_event_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -90,14 +89,15 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: Duration(milliseconds: 0),
-                        reverseDuration: Duration(milliseconds: 0),
-                        child: CreateEventPageWidget(),
-                      ),
+                    context.pushNamed(
+                      'createEventPage',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
                     );
                   },
                   text: 'Create Event',

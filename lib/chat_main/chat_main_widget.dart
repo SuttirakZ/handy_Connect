@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../chat_details/chat_details_widget.dart';
 import '../components/empty_chat_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -104,17 +103,26 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                 final chatInfo =
                                     snapshot.data ?? FFChatInfo(allChatsItem);
                                 return FFChatPreview(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ChatDetailsWidget(
-                                        chatUser:
-                                            chatInfo.otherUsers.length == 1
-                                                ? chatInfo.otherUsersList.first
-                                                : null,
-                                        chatRef: chatInfo.chatRecord.reference,
+                                  onTap: () => context.pushNamed(
+                                    'chatDetails',
+                                    queryParams: {
+                                      'chatUser': serializeParam(
+                                        chatInfo.otherUsers.length == 1
+                                            ? chatInfo.otherUsersList.first
+                                            : null,
+                                        ParamType.Document,
                                       ),
-                                    ),
+                                      'chatRef': serializeParam(
+                                        chatInfo.chatRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'chatUser':
+                                          chatInfo.otherUsers.length == 1
+                                              ? chatInfo.otherUsersList.first
+                                              : null,
+                                    },
                                   ),
                                   lastChatText: chatInfo.chatPreviewMessage(),
                                   lastChatTime: allChatsItem.lastMessageTime,
