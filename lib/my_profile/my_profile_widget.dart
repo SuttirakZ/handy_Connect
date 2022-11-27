@@ -155,7 +155,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                     .title1
                                     .override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Colors.white,
+                                      color: Color(0xFF0F1642),
                                     ),
                               ),
                             ),

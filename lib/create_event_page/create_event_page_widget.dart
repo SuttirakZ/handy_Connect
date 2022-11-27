@@ -176,7 +176,13 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                         EdgeInsetsDirectional.fromSTEB(
                                             20, 32, 20, 12),
                                   ),
-                                  style: FlutterFlowTheme.of(context).title3,
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .black600,
+                                      ),
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -229,10 +235,11 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                             20, 32, 20, 12),
                                   ),
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyText1
+                                      .subtitle1
                                       .override(
                                         fontFamily: 'Lexend Deca',
-                                        fontSize: 20,
+                                        color: FlutterFlowTheme.of(context)
+                                            .black600,
                                       ),
                                   textAlign: TextAlign.start,
                                   maxLines: 4,
@@ -289,7 +296,13 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                         EdgeInsetsDirectional.fromSTEB(
                                             20, 32, 20, 12),
                                   ),
-                                  style: FlutterFlowTheme.of(context).title3,
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .black600,
+                                      ),
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -357,6 +370,10 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                                       .override(
                                                         fontFamily:
                                                             'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black600,
                                                         fontSize: 15,
                                                       ),
                                                 ),
@@ -416,14 +433,17 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                                       datePicked2),
                                                   'End Date',
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText2
-                                                        .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          fontSize: 15,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText2
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .black600,
+                                                      fontSize: 15,
+                                                    ),
                                               ),
                                               Icon(
                                                 Icons.date_range_outlined,

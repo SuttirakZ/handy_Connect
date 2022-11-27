@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/empty_matches2_widget.dart';
 import '../components/empty_matches_widget.dart';
+import '../components/empty_v_history_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -1266,22 +1267,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   }
                                   List<PostsRecord> stackPostsRecordList =
                                       snapshot.data!;
-                                  // Return an empty Container when the document does not exist.
-                                  if (snapshot.data!.isEmpty) {
-                                    return Container();
-                                  }
                                   final stackPostsRecord =
                                       stackPostsRecordList.isNotEmpty
                                           ? stackPostsRecordList.first
                                           : null;
                                   return Stack(
                                     children: [
-                                      StreamBuilder<List<UsersRecord>>(
-                                        stream: queryUsersRecord(
-                                          queryBuilder: (usersRecord) =>
-                                              usersRecord.where('matches',
-                                                  arrayContains:
-                                                      stackPostsRecord!.postId),
+                                      StreamBuilder<List<PostsRecord>>(
+                                        stream: queryPostsRecord(
+                                          queryBuilder: (postsRecord) =>
+                                              postsRecord.whereIn(
+                                                  'post_id',
+                                                  (currentUserDocument?.matches
+                                                          ?.toList() ??
+                                                      [])),
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
@@ -1300,34 +1299,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ),
                                             );
                                           }
-                                          List<UsersRecord>
-                                              stackUsersRecordList =
+                                          List<PostsRecord>
+                                              stackPostsRecordList =
                                               snapshot.data!;
                                           // Return an empty Container when the document does not exist.
                                           if (snapshot.data!.isEmpty) {
                                             return Container();
                                           }
-                                          final stackUsersRecord =
-                                              stackUsersRecordList.isNotEmpty
-                                                  ? stackUsersRecordList.first
+                                          final stackPostsRecord =
+                                              stackPostsRecordList.isNotEmpty
+                                                  ? stackPostsRecordList.first
                                                   : null;
                                           return Stack(
                                             children: [
-                                              FutureBuilder<List<PostsRecord>>(
-                                                future: (_firestoreRequestCompleter ??=
-                                                        Completer<
-                                                            List<PostsRecord>>()
-                                                          ..complete(
-                                                              queryPostsRecordOnce(
-                                                            queryBuilder: (postsRecord) =>
-                                                                postsRecord.whereIn(
-                                                                    'post_id',
-                                                                    (currentUserDocument
-                                                                            ?.matches
-                                                                            ?.toList() ??
-                                                                        [])),
-                                                          )))
-                                                    .future,
+                                              StreamBuilder<List<UsersRecord>>(
+                                                stream: queryUsersRecord(
+                                                  queryBuilder: (usersRecord) =>
+                                                      usersRecord.where(
+                                                          'matches',
+                                                          arrayContains:
+                                                              stackPostsRecord!
+                                                                  .postId),
+                                                  singleRecord: true,
+                                                ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
@@ -1344,404 +1338,429 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       ),
                                                     );
                                                   }
-                                                  List<PostsRecord>
-                                                      columnPostsRecordList =
+                                                  List<UsersRecord>
+                                                      stackUsersRecordList =
                                                       snapshot.data!;
-                                                  if (columnPostsRecordList
-                                                      .isEmpty) {
-                                                    return Center(
-                                                      child: Image.asset(
-                                                        'assets/images/noFriends@2x.png',
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.9,
-                                                      ),
-                                                    );
+                                                  // Return an empty Container when the document does not exist.
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Container();
                                                   }
-                                                  return RefreshIndicator(
-                                                    onRefresh: () async {
-                                                      setState(() =>
-                                                          _firestoreRequestCompleter =
-                                                              null);
-                                                      await waitForFirestoreRequestCompleter();
-                                                    },
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      physics:
-                                                          const AlwaysScrollableScrollPhysics(),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: List.generate(
-                                                            columnPostsRecordList
-                                                                .length,
-                                                            (columnIndex) {
-                                                          final columnPostsRecord =
-                                                              columnPostsRecordList[
-                                                                  columnIndex];
-                                                          return Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        12,
-                                                                        0,
-                                                                        0),
-                                                            child: StreamBuilder<
-                                                                List<
-                                                                    UsersRecord>>(
-                                                              stream:
-                                                                  queryUsersRecord(
-                                                                queryBuilder: (usersRecord) => usersRecord.where(
-                                                                    'post_id',
-                                                                    arrayContains:
-                                                                        columnPostsRecord
-                                                                            .postId),
-                                                                singleRecord:
-                                                                    true,
+                                                  final stackUsersRecord =
+                                                      stackUsersRecordList
+                                                              .isNotEmpty
+                                                          ? stackUsersRecordList
+                                                              .first
+                                                          : null;
+                                                  return Stack(
+                                                    children: [
+                                                      FutureBuilder<
+                                                          List<PostsRecord>>(
+                                                        future: (_firestoreRequestCompleter ??=
+                                                                Completer<
+                                                                    List<
+                                                                        PostsRecord>>()
+                                                                  ..complete(
+                                                                      queryPostsRecordOnce(
+                                                                    queryBuilder: (postsRecord) => postsRecord.whereIn(
+                                                                        'post_id',
+                                                                        (currentUserDocument?.matches?.toList() ??
+                                                                            [])),
+                                                                  )))
+                                                            .future,
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50,
+                                                                height: 50,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                ),
                                                               ),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                            );
+                                                          }
+                                                          List<PostsRecord>
+                                                              columnPostsRecordList =
+                                                              snapshot.data!;
+                                                          if (columnPostsRecordList
+                                                              .isEmpty) {
+                                                            return Center(
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/noFriends@2x.png',
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.9,
+                                                              ),
+                                                            );
+                                                          }
+                                                          return RefreshIndicator(
+                                                            onRefresh:
+                                                                () async {
+                                                              setState(() =>
+                                                                  _firestoreRequestCompleter =
+                                                                      null);
+                                                              await waitForFirestoreRequestCompleter();
+                                                            },
+                                                            child:
+                                                                SingleChildScrollView(
+                                                              physics:
+                                                                  const AlwaysScrollableScrollPhysics(),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: List.generate(
+                                                                    columnPostsRecordList
+                                                                        .length,
+                                                                    (columnIndex) {
+                                                                  final columnPostsRecord =
+                                                                      columnPostsRecordList[
+                                                                          columnIndex];
+                                                                  return Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            12,
+                                                                            0,
+                                                                            0),
+                                                                    child: StreamBuilder<
+                                                                        List<
+                                                                            UsersRecord>>(
+                                                                      stream:
+                                                                          queryUsersRecord(
+                                                                        queryBuilder: (usersRecord) => usersRecord.where(
+                                                                            'post_id',
+                                                                            arrayContains:
+                                                                                columnPostsRecord.postId),
+                                                                        singleRecord:
+                                                                            true,
                                                                       ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                List<UsersRecord>
-                                                                    listFriendUsersRecordList =
-                                                                    snapshot
-                                                                        .data!;
-                                                                final listFriendUsersRecord =
-                                                                    listFriendUsersRecordList
-                                                                            .isNotEmpty
-                                                                        ? listFriendUsersRecordList
-                                                                            .first
-                                                                        : null;
-                                                                return Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              8,
-                                                                              0,
-                                                                              8,
-                                                                              8),
-                                                                      child:
-                                                                          InkWell(
-                                                                        onTap:
-                                                                            () async {
-                                                                          await showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (alertDialogContext) {
-                                                                              return AlertDialog(
-                                                                                title: Text('Additional Information :'),
-                                                                                content: Text(columnPostsRecord.postDescription!),
-                                                                                actions: [
-                                                                                  TextButton(
-                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                    child: Text('Close'),
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            },
-                                                                          );
-                                                                        },
-                                                                        child:
-                                                                            Material(
-                                                                          color:
-                                                                              Colors.transparent,
-                                                                          elevation:
-                                                                              2,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(20),
-                                                                          ),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.95,
-                                                                            height:
-                                                                                290,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).lineColor,
-                                                                              boxShadow: [
-                                                                                BoxShadow(
-                                                                                  color: FlutterFlowTheme.of(context).dark900,
-                                                                                  offset: Offset(0, 1),
-                                                                                )
-                                                                              ],
-                                                                              borderRadius: BorderRadius.circular(20),
-                                                                              border: Border.all(
-                                                                                color: Colors.transparent,
-                                                                                width: 0,
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        // Customize what your widget looks like when it's loading.
+                                                                        if (!snapshot
+                                                                            .hasData) {
+                                                                          return Center(
+                                                                            child:
+                                                                                SizedBox(
+                                                                              width: 50,
+                                                                              height: 50,
+                                                                              child: CircularProgressIndicator(
+                                                                                color: FlutterFlowTheme.of(context).primaryColor,
                                                                               ),
                                                                             ),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12, 20, 12, 0),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Card(
-                                                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                                                        color: FlutterFlowTheme.of(context).primaryColor,
-                                                                                        shape: RoundedRectangleBorder(
-                                                                                          borderRadius: BorderRadius.circular(50),
-                                                                                        ),
-                                                                                        child: Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                                                                                          child: Container(
-                                                                                            width: 50,
-                                                                                            height: 50,
-                                                                                            clipBehavior: Clip.antiAlias,
-                                                                                            decoration: BoxDecoration(
-                                                                                              shape: BoxShape.circle,
-                                                                                            ),
-                                                                                            child: CachedNetworkImage(
-                                                                                              imageUrl: listFriendUsersRecord!.photoUrl!,
-                                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        List<UsersRecord>
+                                                                            listFriendUsersRecordList =
+                                                                            snapshot.data!;
+                                                                        final listFriendUsersRecord = listFriendUsersRecordList.isNotEmpty
+                                                                            ? listFriendUsersRecordList.first
+                                                                            : null;
+                                                                        return Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                                                                              child: InkWell(
+                                                                                onTap: () async {
+                                                                                  await showDialog(
+                                                                                    context: context,
+                                                                                    builder: (alertDialogContext) {
+                                                                                      return AlertDialog(
+                                                                                        title: Text('Additional Information :'),
+                                                                                        content: Text(columnPostsRecord.postDescription!),
+                                                                                        actions: [
+                                                                                          TextButton(
+                                                                                            onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                            child: Text('Close'),
                                                                                           ),
-                                                                                        ),
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.location_on_sharp,
-                                                                                              color: Colors.black,
-                                                                                              size: 27,
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.date_range_outlined,
-                                                                                              color: Colors.black,
-                                                                                              size: 27,
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.access_time,
-                                                                                              color: Colors.black,
-                                                                                              size: 27,
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
+                                                                                        ],
+                                                                                      );
+                                                                                    },
+                                                                                  );
+                                                                                },
+                                                                                child: Material(
+                                                                                  color: Colors.transparent,
+                                                                                  elevation: 2,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(20),
                                                                                   ),
-                                                                                ),
-                                                                                Expanded(
-                                                                                  child: Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                                                                    child: Column(
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.of(context).size.width * 0.95,
+                                                                                    height: 290,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).lineColor,
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          color: FlutterFlowTheme.of(context).dark900,
+                                                                                          offset: Offset(0, 1),
+                                                                                        )
+                                                                                      ],
+                                                                                      borderRadius: BorderRadius.circular(20),
+                                                                                      border: Border.all(
+                                                                                        color: Colors.transparent,
+                                                                                        width: 0,
+                                                                                      ),
+                                                                                    ),
+                                                                                    child: Row(
                                                                                       mainAxisSize: MainAxisSize.max,
-                                                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                                                       children: [
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              columnPostsRecord.postTitle!,
-                                                                                              style: FlutterFlowTheme.of(context).title1,
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(12, 20, 12, 0),
+                                                                                          child: Column(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Card(
+                                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                                shape: RoundedRectangleBorder(
+                                                                                                  borderRadius: BorderRadius.circular(50),
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                                                                                                  child: Container(
+                                                                                                    width: 50,
+                                                                                                    height: 50,
+                                                                                                    clipBehavior: Clip.antiAlias,
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      shape: BoxShape.circle,
+                                                                                                    ),
+                                                                                                    child: CachedNetworkImage(
+                                                                                                      imageUrl: listFriendUsersRecord!.photoUrl!,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                child: Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Icon(
+                                                                                                      Icons.location_on_sharp,
+                                                                                                      color: Colors.black,
+                                                                                                      size: 27,
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                child: Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Icon(
+                                                                                                      Icons.date_range_outlined,
+                                                                                                      color: Colors.black,
+                                                                                                      size: 27,
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                child: Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Icon(
+                                                                                                      Icons.access_time,
+                                                                                                      color: Colors.black,
+                                                                                                      size: 27,
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                        Expanded(
+                                                                                          child: Padding(
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      columnPostsRecord.postTitle!,
+                                                                                                      style: FlutterFlowTheme.of(context).title1,
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                                                                                                  child: Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                                                                                                          child: Text(
+                                                                                                            'Location : ${columnPostsRecord.location}',
+                                                                                                            style: FlutterFlowTheme.of(context).subtitle1,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                  child: Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                                                                                                          child: Text(
+                                                                                                            'Date : ${dateTimeFormat('d/M/y', columnPostsRecord.startTime)}',
+                                                                                                            style: FlutterFlowTheme.of(context).subtitle1,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                  child: Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                                                                                                          child: Text(
+                                                                                                            'Time : ${dateTimeFormat('jm', columnPostsRecord.startTime)}',
+                                                                                                            style: FlutterFlowTheme.of(context).subtitle1,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                                                                  child: Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Text(
+                                                                                                        'Status',
+                                                                                                        style: FlutterFlowTheme.of(context).title1,
+                                                                                                      ),
+                                                                                                      Stack(
+                                                                                                        children: [
+                                                                                                          if (columnPostsRecord.status == true)
+                                                                                                            Container(
+                                                                                                              width: 150,
+                                                                                                              height: 60,
+                                                                                                              decoration: BoxDecoration(
+                                                                                                                color: Color(0xAB5AEF39),
+                                                                                                                borderRadius: BorderRadius.circular(40),
+                                                                                                              ),
+                                                                                                              child: Row(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                children: [
+                                                                                                                  Expanded(
+                                                                                                                    child: Padding(
+                                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                                                                                                                      child: Text(
+                                                                                                                        columnPostsRecord.status == false
+                                                                                                                            ? valueOrDefault<String>(
+                                                                                                                                '',
+                                                                                                                                'Ongoing',
+                                                                                                                              )
+                                                                                                                            : valueOrDefault<String>(
+                                                                                                                                '',
+                                                                                                                                'Complete',
+                                                                                                                              ),
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        style: FlutterFlowTheme.of(context).title2,
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          if (columnPostsRecord.status == false)
+                                                                                                            Container(
+                                                                                                              width: 150,
+                                                                                                              height: 60,
+                                                                                                              decoration: BoxDecoration(
+                                                                                                                color: Color(0xFFFFC03D),
+                                                                                                                borderRadius: BorderRadius.circular(40),
+                                                                                                              ),
+                                                                                                              child: Row(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                children: [
+                                                                                                                  Expanded(
+                                                                                                                    child: Padding(
+                                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                                                                                                                      child: Text(
+                                                                                                                        columnPostsRecord.status == false
+                                                                                                                            ? valueOrDefault<String>(
+                                                                                                                                '',
+                                                                                                                                'Ongoing',
+                                                                                                                              )
+                                                                                                                            : valueOrDefault<String>(
+                                                                                                                                '',
+                                                                                                                                'Complete',
+                                                                                                                              ),
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        style: FlutterFlowTheme.of(context).title2,
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
                                                                                             ),
-                                                                                          ],
-                                                                                        ),
-                                                                                        Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                                                                                          child: Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Expanded(
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
-                                                                                                  child: Text(
-                                                                                                    'Location : ${columnPostsRecord.location}',
-                                                                                                    style: FlutterFlowTheme.of(context).subtitle1,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                          child: Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Expanded(
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
-                                                                                                  child: Text(
-                                                                                                    'Date : ${dateTimeFormat('d/M/y', columnPostsRecord.startTime)}',
-                                                                                                    style: FlutterFlowTheme.of(context).subtitle1,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                          child: Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Expanded(
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
-                                                                                                  child: Text(
-                                                                                                    'Time : ${dateTimeFormat('jm', columnPostsRecord.startTime)}',
-                                                                                                    style: FlutterFlowTheme.of(context).subtitle1,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                                                                          child: Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                'Status',
-                                                                                                style: FlutterFlowTheme.of(context).title1,
-                                                                                              ),
-                                                                                              Stack(
-                                                                                                children: [
-                                                                                                  if (columnPostsRecord.status == true)
-                                                                                                    Container(
-                                                                                                      width: 150,
-                                                                                                      height: 60,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: Color(0xAB5AEF39),
-                                                                                                        borderRadius: BorderRadius.circular(40),
-                                                                                                      ),
-                                                                                                      child: Row(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Expanded(
-                                                                                                            child: Padding(
-                                                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
-                                                                                                              child: Text(
-                                                                                                                columnPostsRecord.status == false
-                                                                                                                    ? valueOrDefault<String>(
-                                                                                                                        '',
-                                                                                                                        'Ongoing',
-                                                                                                                      )
-                                                                                                                    : valueOrDefault<String>(
-                                                                                                                        '',
-                                                                                                                        'Complete',
-                                                                                                                      ),
-                                                                                                                textAlign: TextAlign.center,
-                                                                                                                style: FlutterFlowTheme.of(context).title2,
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  if (columnPostsRecord.status == false)
-                                                                                                    Container(
-                                                                                                      width: 150,
-                                                                                                      height: 60,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: Color(0xFFFFC03D),
-                                                                                                        borderRadius: BorderRadius.circular(40),
-                                                                                                      ),
-                                                                                                      child: Row(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Expanded(
-                                                                                                            child: Padding(
-                                                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
-                                                                                                              child: Text(
-                                                                                                                columnPostsRecord.status == false
-                                                                                                                    ? valueOrDefault<String>(
-                                                                                                                        '',
-                                                                                                                        'Ongoing',
-                                                                                                                      )
-                                                                                                                    : valueOrDefault<String>(
-                                                                                                                        '',
-                                                                                                                        'Complete',
-                                                                                                                      ),
-                                                                                                                textAlign: TextAlign.center,
-                                                                                                                style: FlutterFlowTheme.of(context).title2,
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ],
                                                                                           ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
                                                                                   ),
                                                                                 ),
-                                                                              ],
+                                                                              ),
                                                                             ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                                          ],
+                                                                        );
+                                                                      },
                                                                     ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                                  );
+                                                                }),
+                                                              ),
                                                             ),
                                                           );
-                                                        }),
+                                                        },
                                                       ),
-                                                    ),
+                                                    ],
                                                   );
                                                 },
                                               ),
@@ -1749,6 +1768,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           );
                                         },
                                       ),
+                                      if (!(stackPostsRecord != null))
+                                        EmptyVHistoryWidget(),
                                     ],
                                   );
                                 },
