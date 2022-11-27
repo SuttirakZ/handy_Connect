@@ -108,7 +108,7 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                   options: FFButtonOptions(
                     width: 250,
                     height: 50,
-                    color: FlutterFlowTheme.of(context).primaryColor,
+                    color: Color(0xFF0F1642),
                     textStyle: FlutterFlowTheme.of(context).title1.override(
                           fontFamily: 'Lexend Deca',
                           color: Colors.white,

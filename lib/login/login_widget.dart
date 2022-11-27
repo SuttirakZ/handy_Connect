@@ -45,23 +45,35 @@ class _LoginWidgetState extends State<LoginWidget> {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0x19444D59),
+            color: Color(0xFFC3C9FF),
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/albfo_3.png',
+                'assets/images/pic_bg2.png',
               ).image,
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 300, 0, 90),
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 90),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        'assets/images/HandyconnectLogo2.png',
+                        width: 300,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 12),
                     child: Container(
                       width: double.infinity,
                       height: 50,
@@ -75,13 +87,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           controller: emailTextController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Email Address',
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .title1
-                                .override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.of(context).grayDark,
-                                ),
+                            labelStyle: FlutterFlowTheme.of(context).title2,
                             hintText: 'Email Address',
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -124,12 +130,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).grayDark,
-                              ),
+                          style: FlutterFlowTheme.of(context).subtitle1,
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
@@ -150,7 +151,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                           controller: passwordTextController,
                           obscureText: !passwordVisibility,
                           decoration: InputDecoration(
-                            labelText: 'Password',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .title1
                                 .override(
@@ -212,12 +212,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).grayDark,
-                              ),
+                          style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
                     ),
@@ -241,10 +236,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                     options: FFButtonOptions(
                       width: 300,
                       height: 55,
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                      color: Color(0xFFFFC03D),
                       textStyle: FlutterFlowTheme.of(context).title1.override(
                             fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            color: FlutterFlowTheme.of(context).black600,
                           ),
                       elevation: 4,
                       borderSide: BorderSide(
@@ -255,7 +250,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -293,7 +288,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 .subtitle1
                                 .override(
                                   fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.of(context).black600,
+                                  color: FlutterFlowTheme.of(context).dark900,
                                   fontSize: 16,
                                 ),
                             elevation: 0,

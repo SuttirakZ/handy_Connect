@@ -56,7 +56,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: Color(0xFF0F1642),
         automaticallyImplyLeading: false,
         title: Text(
           'Create Event',
@@ -74,7 +74,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
               buttonSize: 48,
               icon: Icon(
                 Icons.close_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
+                color: Color(0xFFF1F4F8),
                 size: 30,
               ),
               onPressed: () async {
@@ -118,198 +118,268 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                   return Form(
                     key: formKey,
                     autovalidateMode: AutovalidateMode.disabled,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                              child: TextFormField(
-                                controller: eventTitleController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Title',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .title3
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16, 16, 16, 0),
+                                child: TextFormField(
+                                  controller: eventTitleController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Title',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .title3
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontWeight: FontWeight.normal,
+                                            .primaryBackground,
+                                        width: 2,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 32, 20, 12),
                                   ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          20, 32, 20, 12),
+                                  style: FlutterFlowTheme.of(context).title3,
+                                  textAlign: TextAlign.start,
                                 ),
-                                style: FlutterFlowTheme.of(context).title3,
-                                textAlign: TextAlign.start,
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                              child: TextFormField(
-                                controller: shortInfoController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter Additional Info here...',
-                                  hintStyle: FlutterFlowTheme.of(context)
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16, 16, 16, 0),
+                                child: TextFormField(
+                                  controller: shortInfoController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter Additional Info here...',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          fontSize: 20,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 32, 20, 12),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
                                         fontFamily: 'Lexend Deca',
                                         fontSize: 20,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          20, 32, 20, 12),
+                                  textAlign: TextAlign.start,
+                                  maxLines: 4,
+                                  keyboardType: TextInputType.multiline,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Lexend Deca',
-                                      fontSize: 20,
-                                    ),
-                                textAlign: TextAlign.start,
-                                maxLines: 4,
-                                keyboardType: TextInputType.multiline,
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                              child: TextFormField(
-                                controller: eventLocationController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Location',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .title3
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16, 16, 16, 0),
+                                child: TextFormField(
+                                  controller: eventLocationController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Location',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .title3
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontWeight: FontWeight.normal,
+                                            .primaryBackground,
+                                        width: 2,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      width: 2,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 2,
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 32, 20, 12),
                                   ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          20, 32, 20, 12),
+                                  style: FlutterFlowTheme.of(context).title3,
+                                  textAlign: TextAlign.start,
                                 ),
-                                style: FlutterFlowTheme.of(context).title3,
-                                textAlign: TextAlign.start,
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 8, 0),
-                                    child: InkWell(
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16, 12, 16, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 8, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await DatePicker.showDateTimePicker(
+                                            context,
+                                            showTitleActions: true,
+                                            onConfirm: (date) {
+                                              setState(
+                                                  () => datePicked1 = date);
+                                            },
+                                            currentTime: getCurrentTimestamp,
+                                            minTime: DateTime(0, 0, 0),
+                                          );
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.44,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12, 5, 12, 5),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  valueOrDefault<String>(
+                                                    dateTimeFormat('d/M h:mm a',
+                                                        datePicked1),
+                                                    'Start Date',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText2
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 15,
+                                                      ),
+                                                ),
+                                                Icon(
+                                                  Icons.date_range_outlined,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 24,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
                                       onTap: () async {
                                         await DatePicker.showDateTimePicker(
                                           context,
                                           showTitleActions: true,
                                           onConfirm: (date) {
-                                            setState(() => datePicked1 = date);
+                                            setState(() => datePicked2 = date);
                                           },
                                           currentTime: getCurrentTimestamp,
                                           minTime: DateTime(0, 0, 0),
@@ -343,8 +413,8 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                               Text(
                                                 valueOrDefault<String>(
                                                   dateTimeFormat('d/M h:mm a',
-                                                      datePicked1),
-                                                  'Start Date',
+                                                      datePicked2),
+                                                  'End Date',
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -367,186 +437,131 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                         ),
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 30, 0, 16),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                var _shouldSetState = false;
+                                var confirmDialogResponse =
+                                    await showDialog<bool>(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  'Are you sure to create this event?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          false),
+                                                  child: Text('No'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          true),
+                                                  child: Text('Yes'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ) ??
+                                        false;
+                                if (confirmDialogResponse) {
+                                  Navigator.pop(context);
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (formKey.currentState == null ||
+                                    !formKey.currentState!.validate()) {
+                                  return;
+                                }
+
+                                final postsCreateData = createPostsRecordData(
+                                  postTitle: eventTitleController!.text,
+                                  postDescription: shortInfoController!.text,
+                                  timePosted: getCurrentTimestamp,
+                                  location: eventLocationController!.text,
+                                  date: datePicked1,
+                                  status: false,
+                                  startTime: datePicked1,
+                                  endTime: datePicked2,
+                                  postUser: currentUserReference,
+                                  postId: random_data.randomString(
+                                    4,
+                                    5,
+                                    true,
+                                    true,
+                                    true,
                                   ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await DatePicker.showDateTimePicker(
-                                        context,
-                                        showTitleActions: true,
-                                        onConfirm: (date) {
-                                          setState(() => datePicked2 = date);
-                                        },
-                                        currentTime: getCurrentTimestamp,
-                                        minTime: DateTime(0, 0, 0),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.44,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 5, 12, 5),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              valueOrDefault<String>(
-                                                dateTimeFormat(
-                                                    'd/M h:mm a', datePicked2),
-                                                'End Date',
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 15,
-                                                      ),
-                                            ),
-                                            Icon(
-                                              Icons.date_range_outlined,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
+                                  isComplete: false,
+                                );
+                                var postsRecordReference =
+                                    PostsRecord.collection.doc();
+                                await postsRecordReference.set(postsCreateData);
+                                postID = PostsRecord.getDocumentFromData(
+                                    postsCreateData, postsRecordReference);
+                                _shouldSetState = true;
+
+                                final usersUpdateData = {
+                                  'post_id':
+                                      FieldValue.arrayUnion([postID!.postId]),
+                                };
+                                await currentUserReference!
+                                    .update(usersUpdateData);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Waiting for Volunteer',
+                                      style: TextStyle(
+                                        color: Colors.black,
                                       ),
                                     ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor: Color(0xFFFFC03D),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 16),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              var _shouldSetState = false;
-                              var confirmDialogResponse =
-                                  await showDialog<bool>(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                'Are you sure to create this event?'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: Text('No'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: Text('Yes'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ) ??
-                                      false;
-                              if (confirmDialogResponse) {
-                                Navigator.pop(context);
-                              } else {
+                                );
+
+                                context.pushNamed('homePage');
+
                                 if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (formKey.currentState == null ||
-                                  !formKey.currentState!.validate()) {
-                                return;
-                              }
-
-                              final postsCreateData = createPostsRecordData(
-                                postTitle: eventTitleController!.text,
-                                postDescription: shortInfoController!.text,
-                                timePosted: getCurrentTimestamp,
-                                location: eventLocationController!.text,
-                                date: datePicked1,
-                                status: false,
-                                startTime: datePicked1,
-                                endTime: datePicked2,
-                                postUser: currentUserReference,
-                                postId: random_data.randomString(
-                                  4,
-                                  5,
-                                  true,
-                                  true,
-                                  true,
-                                ),
-                                isComplete: false,
-                              );
-                              var postsRecordReference =
-                                  PostsRecord.collection.doc();
-                              await postsRecordReference.set(postsCreateData);
-                              postID = PostsRecord.getDocumentFromData(
-                                  postsCreateData, postsRecordReference);
-                              _shouldSetState = true;
-
-                              final usersUpdateData = {
-                                'post_id':
-                                    FieldValue.arrayUnion([postID!.postId]),
-                              };
-                              await currentUserReference!
-                                  .update(usersUpdateData);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Waiting for Volunteer',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor: Color(0xFFFFC03D),
-                                ),
-                              );
-
-                              context.pushNamed('homePage');
-
-                              if (_shouldSetState) setState(() {});
-                            },
-                            text: 'Create Event',
-                            icon: Icon(
-                              Icons.create_new_folder_outlined,
-                              size: 15,
-                            ),
-                            options: FFButtonOptions(
-                              width: 300,
-                              height: 55,
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              textStyle:
-                                  FlutterFlowTheme.of(context).title1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Colors.white,
-                                      ),
-                              elevation: 3,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                              },
+                              text: 'Create Event',
+                              icon: Icon(
+                                Icons.create_new_folder_outlined,
+                                size: 15,
                               ),
-                              borderRadius: BorderRadius.circular(40),
+                              options: FFButtonOptions(
+                                width: 300,
+                                height: 55,
+                                color: Color(0xFF0F1642),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .title1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFFF1F4F8),
+                                    ),
+                                elevation: 3,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

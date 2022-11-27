@@ -29,14 +29,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: Color(0xFF0F1642),
         automaticallyImplyLeading: false,
-        title: Text(
-          'Homepage',
-          style: FlutterFlowTheme.of(context).title1.override(
-                fontFamily: 'Lexend Deca',
-                color: FlutterFlowTheme.of(context).dark900,
-              ),
+        title: InkWell(
+          onTap: () async {
+            context.pushNamed('Login');
+          },
+          child: Text(
+            'Homepage',
+            style: FlutterFlowTheme.of(context).title1.override(
+                  fontFamily: 'Lexend Deca',
+                  color: FlutterFlowTheme.of(context).dark900,
+                ),
+          ),
         ),
         actions: [],
         centerTitle: false,
@@ -475,7 +480,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                       width: 150,
                                                                                       height: 60,
                                                                                       decoration: BoxDecoration(
-                                                                                        color: Color(0xFFA1ABFF),
+                                                                                        color: Color(0xFFFFC03D),
                                                                                         borderRadius: BorderRadius.circular(40),
                                                                                       ),
                                                                                       child: Row(
@@ -576,9 +581,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 options: FFButtonOptions(
                                                   width: 300,
                                                   height: 55,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryColor,
+                                                  color: Color(0xFF0F1642),
                                                   textStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -624,7 +627,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     child: Column(
                       children: [
                         TabBar(
-                          labelColor: FlutterFlowTheme.of(context).primaryColor,
+                          labelColor: Color(0xFF0F1642),
                           labelStyle: FlutterFlowTheme.of(context).bodyText1,
                           indicatorColor:
                               FlutterFlowTheme.of(context).secondaryColor,
@@ -633,12 +636,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               text: 'Help Board',
                               icon: Icon(
                                 Icons.emoji_people,
+                                color: Color(0xFF0F1642),
                               ),
                             ),
                             Tab(
                               text: 'My History',
                               icon: Icon(
                                 Icons.history,
+                                color: Color(0xFF0F1642),
                               ),
                             ),
                           ],
@@ -1686,7 +1691,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                       width: 150,
                                                                                                       height: 60,
                                                                                                       decoration: BoxDecoration(
-                                                                                                        color: Color(0xFFA1ABFF),
+                                                                                                        color: Color(0xFFFFC03D),
                                                                                                         borderRadius: BorderRadius.circular(40),
                                                                                                       ),
                                                                                                       child: Row(

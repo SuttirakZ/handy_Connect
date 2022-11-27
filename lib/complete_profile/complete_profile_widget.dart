@@ -43,7 +43,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: Color(0xFF0F1642),
         automaticallyImplyLeading: false,
         title: Text(
           'Complete Profile',
@@ -65,8 +65,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Container(
-                  width: 80,
-                  height: 80,
+                  width: 150,
+                  height: 150,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -247,16 +247,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  final usersUpdateData = createUsersRecordData(
-                    photoUrl: valueOrDefault<String>(
-                      imageURLController!.text,
-                      'https://static.vecteezy.com/system/resources/previews/000/420/303/large_2x/avatar-icon-vector-illustration.jpg',
+                  final usersUpdateData = {
+                    ...createUsersRecordData(
+                      photoUrl: valueOrDefault<String>(
+                        imageURLController!.text,
+                        'https://static.vecteezy.com/system/resources/previews/000/420/303/large_2x/avatar-icon-vector-illustration.jpg',
+                      ),
+                      displayName: displayNameController!.text,
+                      createdTime: getCurrentTimestamp,
+                      isDisabled: switchListTileValue,
+                      phoneNumber: phoneNumberController!.text,
                     ),
-                    displayName: displayNameController!.text,
-                    createdTime: getCurrentTimestamp,
-                    isDisabled: switchListTileValue,
-                    phoneNumber: phoneNumberController!.text,
-                  );
+                    'matches': FieldValue.arrayUnion(['']),
+                    'rejected': FieldValue.arrayUnion(['']),
+                  };
                   await currentUserReference!.update(usersUpdateData);
 
                   context.pushNamed('homePage');
@@ -265,7 +269,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                 options: FFButtonOptions(
                   width: 300,
                   height: 60,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: Color(0xFF0F1642),
                   textStyle: FlutterFlowTheme.of(context).title1.override(
                         fontFamily: 'Lexend Deca',
                         color: FlutterFlowTheme.of(context).secondaryBackground,

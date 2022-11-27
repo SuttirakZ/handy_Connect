@@ -65,7 +65,7 @@ class _EmptyChatWidgetState extends State<EmptyChatWidget> {
             children: [
               Expanded(
                 child: Text(
-                  'Seems you don\'t have any messages here, search your friends list in order to get started.',
+                  'Let\'s Talk together with your partner',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyText1.override(
                         fontFamily: 'Lexend Deca',

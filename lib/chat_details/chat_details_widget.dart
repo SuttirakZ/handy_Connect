@@ -56,7 +56,7 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: Color(0xFF0F1642),
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {

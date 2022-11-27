@@ -93,7 +93,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                     width: MediaQuery.of(context).size.width,
                     height: 350,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                      color: FlutterFlowTheme.of(context).lineColor,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -107,7 +107,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Image.asset(
-                                      'assets/images/pic_splash.png',
+                                      'assets/images/HandyconnectLogo3.png',
                                       width: MediaQuery.of(context).size.width,
                                       height: 200,
                                       fit: BoxFit.cover,
@@ -119,8 +119,8 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 160, 0, 0),
                                       child: Container(
-                                        width: 80,
-                                        height: 80,
+                                        width: 100,
+                                        height: 100,
                                         clipBehavior: Clip.antiAlias,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -537,13 +537,13 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                             options: FFButtonOptions(
                               width: 300,
                               height: 55,
-                              color: Colors.white,
-                              textStyle:
-                                  FlutterFlowTheme.of(context).title1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                      ),
+                              color: Color(0xFF0F1642),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .title1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: FlutterFlowTheme.of(context).dark900,
+                                  ),
                               elevation: 3,
                               borderSide: BorderSide(
                                 color: Colors.transparent,

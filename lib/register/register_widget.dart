@@ -55,7 +55,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/24.png',
+                'assets/images/pic_bg2.png',
               ).image,
             ),
           ),
@@ -71,9 +71,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 160,
-                        height: 140,
+                        'assets/images/HandyconnectLogo2.png',
+                        width: 260,
+                        height: 160,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -93,7 +93,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           controller: emailAddressController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Email Address',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .title1
                                 .override(
@@ -142,19 +141,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).grayDark,
-                              ),
+                          style: FlutterFlowTheme.of(context).subtitle1,
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 12),
                     child: Container(
                       width: double.infinity,
                       height: 50,
@@ -168,7 +162,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           controller: passwordController,
                           obscureText: !passwordVisibility,
                           decoration: InputDecoration(
-                            labelText: 'Password',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .title1
                                 .override(
@@ -230,12 +223,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).grayDark,
-                              ),
+                          style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
                     ),
@@ -255,7 +243,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           controller: confirmPasswordController,
                           obscureText: !confirmPasswordVisibility,
                           decoration: InputDecoration(
-                            labelText: 'Re-Password',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .title1
                                 .override(
@@ -318,12 +305,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).grayDark,
-                              ),
+                          style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
                     ),
@@ -358,10 +340,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     options: FFButtonOptions(
                       width: 300,
                       height: 55,
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                      color: Color(0xFFFFC03D),
                       textStyle: FlutterFlowTheme.of(context).title1.override(
                             fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            color: FlutterFlowTheme.of(context).black600,
                           ),
                       elevation: 4,
                       borderSide: BorderSide(
@@ -372,7 +354,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
