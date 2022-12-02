@@ -1171,11 +1171,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                       content: Text(
                                                                                         'Thank you for your support ^_^',
                                                                                         style: TextStyle(
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          color: FlutterFlowTheme.of(context).dark900,
                                                                                         ),
                                                                                       ),
                                                                                       duration: Duration(milliseconds: 4000),
-                                                                                      backgroundColor: FlutterFlowTheme.of(context).secondaryColor,
+                                                                                      backgroundColor: Color(0xFF0F1642),
                                                                                     ),
                                                                                   );
                                                                                   await Future.delayed(const Duration(milliseconds: 1000));

@@ -544,11 +544,12 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                     content: Text(
                                       'Waiting for Volunteer',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: FlutterFlowTheme.of(context)
+                                            .dark900,
                                       ),
                                     ),
                                     duration: Duration(milliseconds: 4000),
-                                    backgroundColor: Color(0xFFFFC03D),
+                                    backgroundColor: Color(0xFF0F1642),
                                   ),
                                 );
 

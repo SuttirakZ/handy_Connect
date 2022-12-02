@@ -45,7 +45,6 @@ class _LoginWidgetState extends State<LoginWidget> {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFFC3C9FF),
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.asset(
