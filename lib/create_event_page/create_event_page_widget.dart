@@ -426,8 +426,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                                   () => datePicked1 = date);
                                             },
                                             currentTime: getCurrentTimestamp,
-                                            minTime: DateTime(0, 0, 0),
-                                            maxTime: getCurrentTimestamp,
+                                            minTime: getCurrentTimestamp,
                                           );
                                         },
                                         child: Container(
@@ -499,8 +498,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                             setState(() => datePicked2 = date);
                                           },
                                           currentTime: getCurrentTimestamp,
-                                          minTime: DateTime(0, 0, 0),
-                                          maxTime: getCurrentTimestamp,
+                                          minTime: getCurrentTimestamp,
                                         );
                                       },
                                       child: Container(
