@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
   TextEditingController? eventTitleController;
   TextEditingController? shortInfoController;
   PostsRecord? postID;
+  bool? scaffoldConnected;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -128,182 +130,279 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 0),
-                                child: TextFormField(
-                                  controller: eventTitleController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Title',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .title3
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontWeight: FontWeight.normal,
+                                    16, 0, 16, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 16, 0, 0),
+                                        child: TextFormField(
+                                          controller: eventTitleController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Title',
+                                            labelStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title3
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .background,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 32, 20, 12),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title3
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                          textAlign: TextAlign.start,
+                                          validator: (val) {
+                                            if (val == null || val.isEmpty) {
+                                              return 'Title is required';
+                                            }
+
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
+
+                                            return null;
+                                          },
                                         ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 32, 20, 12),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .title3
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.of(context)
-                                            .black600,
-                                      ),
-                                  textAlign: TextAlign.start,
+                                  ],
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 0),
-                                child: TextFormField(
-                                  controller: shortInfoController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter Additional Info here...',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          fontSize: 20,
+                                    16, 0, 16, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 16, 0, 0),
+                                        child: TextFormField(
+                                          controller: shortInfoController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'Enter Additional Info here...',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      fontSize: 20,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .background,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 32, 20, 12),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                          textAlign: TextAlign.start,
+                                          maxLines: 4,
+                                          keyboardType: TextInputType.multiline,
                                         ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 32, 20, 12),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.of(context)
-                                            .black600,
-                                      ),
-                                  textAlign: TextAlign.start,
-                                  maxLines: 4,
-                                  keyboardType: TextInputType.multiline,
+                                  ],
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 0),
-                                child: TextFormField(
-                                  controller: eventLocationController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Location',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .title3
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontWeight: FontWeight.normal,
+                                    16, 0, 16, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 16, 0, 0),
+                                        child: TextFormField(
+                                          controller: eventLocationController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Location',
+                                            labelStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title3
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .background,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 32, 20, 12),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title3
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                          textAlign: TextAlign.start,
+                                          validator: (val) {
+                                            if (val == null || val.isEmpty) {
+                                              return 'Location is required';
+                                            }
+
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
+
+                                            return null;
+                                          },
                                         ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 32, 20, 12),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .title3
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.of(context)
-                                            .black600,
-                                      ),
-                                  textAlign: TextAlign.start,
+                                  ],
                                 ),
                               ),
                               Padding(
@@ -328,6 +427,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                             },
                                             currentTime: getCurrentTimestamp,
                                             minTime: DateTime(0, 0, 0),
+                                            maxTime: getCurrentTimestamp,
                                           );
                                         },
                                         child: Container(
@@ -338,7 +438,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           height: 50,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
+                                                .background,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
@@ -400,6 +500,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           },
                                           currentTime: getCurrentTimestamp,
                                           minTime: DateTime(0, 0, 0),
+                                          maxTime: getCurrentTimestamp,
                                         );
                                       },
                                       child: Container(
@@ -409,7 +510,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                                              .background,
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           border: Border.all(
@@ -468,6 +569,74 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 var _shouldSetState = false;
+                                scaffoldConnected =
+                                    await actions.checkInternetConnection();
+                                _shouldSetState = true;
+                                if (scaffoldConnected == false) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .dark900,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).grayDark,
+                                    ),
+                                  );
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                } else {
+                                  if (formKey.currentState == null ||
+                                      !formKey.currentState!.validate()) {
+                                    return;
+                                  }
+
+                                  if (datePicked1 == null) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Error:'),
+                                          content: Text(
+                                              ' Please Enter your start Date&Time !'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Close'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    return;
+                                  }
+                                  if (datePicked2 == null) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Error:'),
+                                          content: Text(
+                                              'Please Enter your end Date&Time !'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Close'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    return;
+                                  }
+                                }
+
                                 var confirmDialogResponse =
                                     await showDialog<bool>(
                                           context: context,
@@ -504,6 +673,47 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
 
                                 if (formKey.currentState == null ||
                                     !formKey.currentState!.validate()) {
+                                  return;
+                                }
+
+                                if (datePicked1 == null) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Error:'),
+                                        content: Text(
+                                            ' Please Enter your start Date&Time !'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Close'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  return;
+                                }
+                                if (datePicked2 == null) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Error:'),
+                                        content: Text(
+                                            'Please Enter your end Date&Time !'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Close'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                   return;
                                 }
 

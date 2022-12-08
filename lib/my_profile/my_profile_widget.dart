@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,6 +20,7 @@ class MyProfileWidget extends StatefulWidget {
 
 class _MyProfileWidgetState extends State<MyProfileWidget>
     with TickerProviderStateMixin {
+  bool? scaffoldConnected;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var hasContainerTriggered1 = false;
   var hasContainerTriggered2 = false;
@@ -54,6 +56,27 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      scaffoldConnected = await actions.checkInternetConnection();
+      if (scaffoldConnected == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).grayDark,
+          ),
+        );
+      } else {
+        return;
+      }
+    });
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -464,27 +487,48 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                               ),
                               child: InkWell(
                                 onTap: () async {
-                                  context.pushNamed(
-                                    'editProfile',
-                                    queryParams: {
-                                      'userEmail': serializeParam(
-                                        myProfileUsersRecord,
-                                        ParamType.Document,
+                                  if (scaffoldConnected == false) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .dark900,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .grayDark,
                                       ),
-                                      'userDisplay': serializeParam(
-                                        myProfileUsersRecord,
-                                        ParamType.Document,
-                                      ),
-                                      'userPhoto': serializeParam(
-                                        myProfileUsersRecord.reference,
-                                        ParamType.DocumentReference,
-                                      ),
-                                    }.withoutNulls,
-                                    extra: <String, dynamic>{
-                                      'userEmail': myProfileUsersRecord,
-                                      'userDisplay': myProfileUsersRecord,
-                                    },
-                                  );
+                                    );
+                                    return;
+                                  } else {
+                                    context.pushNamed(
+                                      'editProfile',
+                                      queryParams: {
+                                        'userEmail': serializeParam(
+                                          myProfileUsersRecord,
+                                          ParamType.Document,
+                                        ),
+                                        'userDisplay': serializeParam(
+                                          myProfileUsersRecord,
+                                          ParamType.Document,
+                                        ),
+                                        'userPhoto': serializeParam(
+                                          myProfileUsersRecord.reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'userEmail': myProfileUsersRecord,
+                                        'userDisplay': myProfileUsersRecord,
+                                      },
+                                    );
+
+                                    return;
+                                  }
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -524,8 +568,26 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              GoRouter.of(context).prepareAuthEvent();
-                              await signOut();
+                              if (scaffoldConnected == false) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .dark900,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                  ),
+                                );
+                                return;
+                              } else {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await signOut();
+                              }
 
                               context.goNamedAuth('Login', mounted);
                             },

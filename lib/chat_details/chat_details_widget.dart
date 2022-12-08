@@ -3,8 +3,10 @@ import '../components/empty_chat_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatDetailsWidget extends StatefulWidget {
@@ -33,11 +35,33 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
     return _chatInfo?.isGroupChat ?? false;
   }
 
+  bool? scaffoldConnected;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      scaffoldConnected = await actions.checkInternetConnection();
+      if (scaffoldConnected == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).grayDark,
+          ),
+        );
+      } else {
+        return;
+      }
+    });
+
     FFChatManager.instance
         .getChatInfo(
       otherUserRecord: widget.chatUser,

@@ -6,11 +6,13 @@ import '../components/empty_v_history_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -22,7 +24,33 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget> {
   Completer<List<PostsRecord>>? _firestoreRequestCompleter;
+  bool? scaffoldConnected;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      scaffoldConnected = await actions.checkInternetConnection();
+      if (scaffoldConnected == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).grayDark,
+          ),
+        );
+      } else {
+        return;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +60,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       appBar: AppBar(
         backgroundColor: Color(0xFF0F1642),
         automaticallyImplyLeading: false,
-        title: InkWell(
-          onTap: () async {
-            context.pushNamed('Login');
-          },
-          child: Text(
-            'Homepage',
-            style: FlutterFlowTheme.of(context).title1.override(
-                  fontFamily: 'Lexend Deca',
-                  color: FlutterFlowTheme.of(context).dark900,
-                ),
-          ),
+        title: Text(
+          'Homepage',
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).dark900,
+              ),
         ),
         actions: [],
         centerTitle: false,
@@ -558,20 +581,47 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   .fromSTEB(0, 20, 0, 20),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  context.pushNamed(
-                                                    'createEventPage',
-                                                    extra: <String, dynamic>{
-                                                      kTransitionInfoKey:
-                                                          TransitionInfo(
-                                                        hasTransition: true,
-                                                        transitionType:
-                                                            PageTransitionType
-                                                                .fade,
+                                                  if (scaffoldConnected ==
+                                                      false) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .dark900,
+                                                          ),
+                                                        ),
                                                         duration: Duration(
-                                                            milliseconds: 0),
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .grayDark,
                                                       ),
-                                                    },
-                                                  );
+                                                    );
+                                                    return;
+                                                  } else {
+                                                    context.pushNamed(
+                                                      'createEventPage',
+                                                      extra: <String, dynamic>{
+                                                        kTransitionInfoKey:
+                                                            TransitionInfo(
+                                                          hasTransition: true,
+                                                          transitionType:
+                                                              PageTransitionType
+                                                                  .fade,
+                                                          duration: Duration(
+                                                              milliseconds: 0),
+                                                        ),
+                                                      },
+                                                    );
+
+                                                    return;
+                                                  }
                                                 },
                                                 text: 'Create Event',
                                                 icon: Icon(
@@ -1052,46 +1102,64 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             child:
                                                                                 FFButtonWidget(
                                                                               onPressed: () async {
-                                                                                var confirmDialogResponse = await showDialog<bool>(
-                                                                                      context: context,
-                                                                                      builder: (alertDialogContext) {
-                                                                                        return AlertDialog(
-                                                                                          title: Text('Are you sure you want to decline this request?'),
-                                                                                          actions: [
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                              child: Text('No'),
-                                                                                            ),
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                              child: Text('Yes'),
-                                                                                            ),
-                                                                                          ],
-                                                                                        );
-                                                                                      },
-                                                                                    ) ??
-                                                                                    false;
-                                                                                if (confirmDialogResponse) {
-                                                                                  final usersUpdateData = {
-                                                                                    'rejected': FieldValue.arrayUnion([
-                                                                                      stackPostsRecord!.postId
-                                                                                    ]),
-                                                                                  };
-                                                                                  await currentUserReference!.update(usersUpdateData);
+                                                                                if (scaffoldConnected == false) {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                    SnackBar(
+                                                                                      content: Text(
+                                                                                        'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                                                                                        style: TextStyle(
+                                                                                          color: FlutterFlowTheme.of(context).dark900,
+                                                                                        ),
+                                                                                      ),
+                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                      backgroundColor: FlutterFlowTheme.of(context).grayDark,
+                                                                                    ),
+                                                                                  );
+                                                                                  return;
                                                                                 } else {
+                                                                                  var confirmDialogResponse = await showDialog<bool>(
+                                                                                        context: context,
+                                                                                        builder: (alertDialogContext) {
+                                                                                          return AlertDialog(
+                                                                                            title: Text('Are you sure you want to decline this request?'),
+                                                                                            actions: [
+                                                                                              TextButton(
+                                                                                                onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                child: Text('No'),
+                                                                                              ),
+                                                                                              TextButton(
+                                                                                                onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                child: Text('Yes'),
+                                                                                              ),
+                                                                                            ],
+                                                                                          );
+                                                                                        },
+                                                                                      ) ??
+                                                                                      false;
+                                                                                  if (confirmDialogResponse) {
+                                                                                    final usersUpdateData = {
+                                                                                      'rejected': FieldValue.arrayUnion([
+                                                                                        stackPostsRecord!.postId
+                                                                                      ]),
+                                                                                    };
+                                                                                    await currentUserReference!.update(usersUpdateData);
+                                                                                  } else {
+                                                                                    return;
+                                                                                  }
+
+                                                                                  context.pushNamed(
+                                                                                    'homePage',
+                                                                                    extra: <String, dynamic>{
+                                                                                      kTransitionInfoKey: TransitionInfo(
+                                                                                        hasTransition: true,
+                                                                                        transitionType: PageTransitionType.fade,
+                                                                                        duration: Duration(milliseconds: 0),
+                                                                                      ),
+                                                                                    },
+                                                                                  );
+
                                                                                   return;
                                                                                 }
-
-                                                                                context.pushNamed(
-                                                                                  'homePage',
-                                                                                  extra: <String, dynamic>{
-                                                                                    kTransitionInfoKey: TransitionInfo(
-                                                                                      hasTransition: true,
-                                                                                      transitionType: PageTransitionType.fade,
-                                                                                      duration: Duration(milliseconds: 0),
-                                                                                    ),
-                                                                                  },
-                                                                                );
                                                                               },
                                                                               text: 'Decline',
                                                                               options: FFButtonOptions(
@@ -1119,78 +1187,96 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             child:
                                                                                 FFButtonWidget(
                                                                               onPressed: () async {
-                                                                                var confirmDialogResponse = await showDialog<bool>(
-                                                                                      context: context,
-                                                                                      builder: (alertDialogContext) {
-                                                                                        return AlertDialog(
-                                                                                          title: Text('Are you sure you want to accept this request?'),
-                                                                                          actions: [
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                              child: Text('No'),
-                                                                                            ),
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                              child: Text('Yes'),
-                                                                                            ),
-                                                                                          ],
-                                                                                        );
-                                                                                      },
-                                                                                    ) ??
-                                                                                    false;
-                                                                                if (confirmDialogResponse) {
-                                                                                  final postsUpdateData = createPostsRecordData(
-                                                                                    status: true,
-                                                                                  );
-                                                                                  await stackPostsRecord!.reference.update(postsUpdateData);
-                                                                                } else {
-                                                                                  return;
-                                                                                }
-
-                                                                                await Future.delayed(const Duration(milliseconds: 1000));
-
-                                                                                final usersUpdateData = {
-                                                                                  'matches': FieldValue.arrayUnion([
-                                                                                    stackPostsRecord!.postId
-                                                                                  ]),
-                                                                                };
-                                                                                await currentUserReference!.update(usersUpdateData);
-                                                                                if ((currentUserDocument?.matches?.toList() ?? []).contains(stackPostsRecord!.postId)) {
-                                                                                  final chatsCreateData = {
-                                                                                    ...createChatsRecordData(
-                                                                                      userA: stackUsersRecord!.reference,
-                                                                                      userB: currentUserReference,
-                                                                                      lastMessage: stackPostsRecord!.postTitle,
-                                                                                      lastMessageTime: getCurrentTimestamp,
-                                                                                    ),
-                                                                                    'users': functions.createChatUserList(stackUsersRecord!.reference, currentUserReference!),
-                                                                                  };
-                                                                                  await ChatsRecord.collection.doc().set(chatsCreateData);
+                                                                                if (scaffoldConnected == false) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
                                                                                       content: Text(
-                                                                                        'Thank you for your support ^_^',
+                                                                                        'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
                                                                                         style: TextStyle(
                                                                                           color: FlutterFlowTheme.of(context).dark900,
                                                                                         ),
                                                                                       ),
                                                                                       duration: Duration(milliseconds: 4000),
-                                                                                      backgroundColor: Color(0xFF0F1642),
+                                                                                      backgroundColor: FlutterFlowTheme.of(context).grayDark,
                                                                                     ),
                                                                                   );
-                                                                                  await Future.delayed(const Duration(milliseconds: 1000));
-                                                                                }
+                                                                                  return;
+                                                                                } else {
+                                                                                  var confirmDialogResponse = await showDialog<bool>(
+                                                                                        context: context,
+                                                                                        builder: (alertDialogContext) {
+                                                                                          return AlertDialog(
+                                                                                            title: Text('Are you sure you want to accept this request?'),
+                                                                                            actions: [
+                                                                                              TextButton(
+                                                                                                onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                child: Text('No'),
+                                                                                              ),
+                                                                                              TextButton(
+                                                                                                onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                child: Text('Yes'),
+                                                                                              ),
+                                                                                            ],
+                                                                                          );
+                                                                                        },
+                                                                                      ) ??
+                                                                                      false;
+                                                                                  if (confirmDialogResponse) {
+                                                                                    final postsUpdateData = createPostsRecordData(
+                                                                                      status: true,
+                                                                                    );
+                                                                                    await stackPostsRecord!.reference.update(postsUpdateData);
+                                                                                  } else {
+                                                                                    return;
+                                                                                  }
 
-                                                                                context.pushNamed(
-                                                                                  'homePage',
-                                                                                  extra: <String, dynamic>{
-                                                                                    kTransitionInfoKey: TransitionInfo(
-                                                                                      hasTransition: true,
-                                                                                      transitionType: PageTransitionType.fade,
-                                                                                      duration: Duration(milliseconds: 0),
-                                                                                    ),
-                                                                                  },
-                                                                                );
+                                                                                  await Future.delayed(const Duration(milliseconds: 1000));
+
+                                                                                  final usersUpdateData = {
+                                                                                    'matches': FieldValue.arrayUnion([
+                                                                                      stackPostsRecord!.postId
+                                                                                    ]),
+                                                                                  };
+                                                                                  await currentUserReference!.update(usersUpdateData);
+                                                                                  if ((currentUserDocument?.matches?.toList() ?? []).contains(stackPostsRecord!.postId)) {
+                                                                                    final chatsCreateData = {
+                                                                                      ...createChatsRecordData(
+                                                                                        userA: stackUsersRecord!.reference,
+                                                                                        userB: currentUserReference,
+                                                                                        lastMessage: stackPostsRecord!.postTitle,
+                                                                                        lastMessageTime: getCurrentTimestamp,
+                                                                                      ),
+                                                                                      'users': functions.createChatUserList(stackUsersRecord!.reference, currentUserReference!),
+                                                                                    };
+                                                                                    await ChatsRecord.collection.doc().set(chatsCreateData);
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          'Thank you for your support ^_^',
+                                                                                          style: TextStyle(
+                                                                                            color: FlutterFlowTheme.of(context).dark900,
+                                                                                          ),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                        backgroundColor: Color(0xFF0F1642),
+                                                                                      ),
+                                                                                    );
+                                                                                    await Future.delayed(const Duration(milliseconds: 1000));
+                                                                                  }
+
+                                                                                  context.pushNamed(
+                                                                                    'homePage',
+                                                                                    extra: <String, dynamic>{
+                                                                                      kTransitionInfoKey: TransitionInfo(
+                                                                                        hasTransition: true,
+                                                                                        transitionType: PageTransitionType.fade,
+                                                                                        duration: Duration(milliseconds: 0),
+                                                                                      ),
+                                                                                    },
+                                                                                  );
+
+                                                                                  return;
+                                                                                }
                                                                               },
                                                                               text: 'Accept',
                                                                               options: FFButtonOptions(

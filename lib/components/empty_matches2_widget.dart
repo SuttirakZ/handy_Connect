@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,6 +13,8 @@ class EmptyMatches2Widget extends StatefulWidget {
 }
 
 class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
+  bool? scaffoldConnected;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,16 +92,42 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed(
-                      'createEventPage',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 0),
+                    var _shouldSetState = false;
+                    scaffoldConnected = await actions.checkInternetConnection();
+                    _shouldSetState = true;
+                    if (scaffoldConnected == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Error: A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).dark900,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).grayDark,
                         ),
-                      },
-                    );
+                      );
+                      if (_shouldSetState) setState(() {});
+                      return;
+                    } else {
+                      context.pushNamed(
+                        'createEventPage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+
+                      if (_shouldSetState) setState(() {});
+                      return;
+                    }
+
+                    if (_shouldSetState) setState(() {});
                   },
                   text: 'Create Event',
                   icon: Icon(
